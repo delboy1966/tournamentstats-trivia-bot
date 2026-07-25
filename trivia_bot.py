@@ -40,21 +40,19 @@ def fetch_top_scorers(competition: str, limit: int, api_key: str) -> list[dict]:
     response.raise_for_status()
     return response.json()["data"]
 
-
 def make_question(scorers: list[dict]) -> str:
     """Turn two random leaderboard entries into a multiple-choice question."""
     a, b = random.sample(scorers, 2)
     correct = a if a["goals"] >= b["goals"] else b
-    options = [a["player"], b["player"]]
+    options = [a["common_name"], b["common_name"]]
     random.shuffle(options)
 
     lines = [
-        f"Who scored more goals: {a['player']} ({a['team']}) or {b['player']} ({b['team']})?",
+        f"Who scored more goals: {a['common_name']} ({a['team_name']}) or {b['common_name']} ({b['team_name']})?",
         *(f"  {chr(65 + i)}. {name}" for i, name in enumerate(options)),
-        f"Answer: {correct['player']} ({correct['goals']} goals)",
+        f"Answer: {correct['common_name']} ({correct['goals']} goals)",
     ]
     return "\n".join(lines)
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Generate football trivia from the TournamentStats API")
