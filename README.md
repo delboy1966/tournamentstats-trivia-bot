@@ -15,7 +15,7 @@ This is meant as a starting point, not a finished app. Fork it, swap in a differ
 ## Quick start
 
 ```bash
-git clone https://github.com/<your-username>/tournamentstats-trivia-bot
+git clone https://github.com/delboy1966/tournamentstats-trivia-bot
 cd tournamentstats-trivia-bot
 pip install -r requirements.txt
 
